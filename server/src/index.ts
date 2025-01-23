@@ -204,7 +204,7 @@ app.post( "/api/v1/brain/share",authMiddleware,async (req: Request, res: Respons
 
 app.get("/api/v1/brain/:shareLink",async (req: Request, res: Response): Promise<void> => {
     try {
-      const { shareLink: hash } = req.params;
+      const  hash = req.params.shareLink;
 
       // Validate if hash is provided
       if (!hash) {
