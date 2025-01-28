@@ -1,12 +1,14 @@
-
 import { useState } from "react";
 import Createcontent from "../Createcontent";
 import { Button } from "../ui/button";
 import Cardcomponent from "../ui/CardComponent";
 import { Addicon, Shareicon } from "../../icons/Icons";
 import Sidebar from "../SideBar";
+// import { link } from "fs";
+import { useContent } from "@/hooks/useContenthook";
 const MainPage = () => {
     const [modalOpen, setModalopen] = useState(false);
+    const { content } = useContent();
     return (
       <>
       {/* <SignIn/> */}
@@ -49,18 +51,20 @@ const MainPage = () => {
   
             {/* Card Section */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Cardcomponent
-                link="https://www.youtube.com/watch?v=tg_Qmigw3pU"
-                title="Sample Title"
-                type="youtube"
-                tags={["sample", "test"]}
-              />
-              <Cardcomponent
-                link="https://x.com/04Acgsilva/status/1883516421948559829"
-                title="Sample Title"
-                type="twitter"
-                tags={["sample", "test"]}
-              />
+              {content.map(({ type, link, title, tags }: {
+                type: "youtube"|"twitter"|"link"|"document";
+                link: string;
+                title: string;
+                tags: string[];
+              }) => (
+                <Cardcomponent
+                  key={link}
+                  link={link}
+                  title={title}
+                  type={type}
+                  tags={tags}
+                />
+              ))}
             </div>
           </div>
         </div>
