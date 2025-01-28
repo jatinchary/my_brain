@@ -7,6 +7,7 @@ import { JWT_SECRATE } from "./config";
 import { authMiddleware } from "./authMiddleware";
 import { linkModel } from "./db";
 import { generateRandomHash } from "./utils";
+import cors from 'cors';
 
 
 
@@ -14,6 +15,7 @@ const app = express();
 app.use(express.json());
 ConnectDB();
 const PORT = 3000;
+app.use(cors());
 
 interface User {
   _id: string;
