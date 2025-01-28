@@ -51,14 +51,15 @@ const MainPage = () => {
   
             {/* Card Section */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {content.map(({ type, link, title, tags }: {
+              {content.map(({ type, link, title, tags, _id }: {
                 type: "youtube"|"twitter"|"link"|"document";
                 link: string;
                 title: string;
                 tags: string[];
+                _id:string;
               }) => (
                 <Cardcomponent
-                  key={link}
+                  id={_id}
                   link={link}
                   title={title}
                   type={type}

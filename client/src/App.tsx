@@ -2,20 +2,20 @@ import {  Route , Routes } from "react-router-dom"
 import SignIn from "./components/pages/Signin"
 import SignUp from "./components/pages/Signup"
 import MainPage from "./components/pages/MainPage"
+import ProtectedRoute from "./components/pages/ProtectedRoute"
 
 
 const App = () => {
-  return (<>
-  
+  return (
     <Routes>
+       {/* <Route path="*" element={<SignIn/>}/> */}
       <Route path="/signin" element={<SignIn/>}/>
       <Route path="/signup" element={<SignUp/>}/>
-      <Route path="/main" element={<MainPage/>}/>
-      {/* <Route path="/signin" element={<SignIn/>}/> */}
+      <Route element={<ProtectedRoute />}>
+        <Route path="/main" element={<MainPage/>}/>
+      </Route>
     </Routes>
-   
-    </>
-  )
+  );
 }
 
 export default App

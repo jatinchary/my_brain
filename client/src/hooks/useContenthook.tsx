@@ -15,6 +15,7 @@ export function useContent() {
       try {
         if (!Token) {
           throw new Error("No authentication token found");
+          
         }
 
         const response = await axios.get(`${BACKEND_URL}/api/v1/content`, {
