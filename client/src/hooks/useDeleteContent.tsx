@@ -11,7 +11,7 @@ export function useDeleteContent() {
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const deleteContent = async (id: string,  options: UseDeleteContentOptions = {}) => {
+  const deleteContent = async (id: string, options: UseDeleteContentOptions = {}) => {
     const { onSuccess, onError } = options;
 
     if (!window.confirm("Are you sure you want to delete this content?")) return;
@@ -20,28 +20,35 @@ export function useDeleteContent() {
     setError(null);
 
     try {
-      const Token = localStorage.getItem("token");
-      if (!Token) throw new Error("Authentication required. Please log in.");
+      const token = localStorage.getItem("Token");
+      if (!token) throw new Error("Authentication required. Please log in.");
 
       await axios.delete(`${BACKEND_URL}/api/v1/content/${id}`, {
         headers: {
-          Authorization: `Bearer ${Token.trim()}`,
+          Authorization: `Bearer ${token.trim()}`,
           "Content-Type": "application/json",
         },
       });
 
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      }
     } catch (err) {
       let errorMessage = "An unexpected error occurred.";
+
       if (axios.isAxiosError(err)) {
         errorMessage = err.response?.data?.message || err.message;
-        if (errorMessage.includes("token")) {
+        if (errorMessage.toLowerCase().includes("token")) {
           localStorage.removeItem("token");
           errorMessage = "Your session has expired. Please log in again.";
         }
       }
+
       setError(errorMessage);
-      if (onError) onError(errorMessage);
+
+      if (onError) {
+        onError(errorMessage);
+      }
     } finally {
       setIsDeleting(false);
     }

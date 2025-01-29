@@ -245,6 +245,21 @@ app.get("/api/v1/brain/:shareLink",async (req: Request, res: Response): Promise<
   }
 );
 
+app.get("/api/v1/:type",authMiddleware,async (req:Request , res:Response):Promise<void>=>{
+  try {
+    //@ts-ignore
+    const userId = req.userId;
+    const {type} = req.params;
+    const content = await ContentModel.find({ userId: userId, type: type });
+    res.status(200).json(content);
+  } catch (error) {
+    res.status(400).json({ message: "somethoing went wrong", error: error });
+  }
+});
+
+
+
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
