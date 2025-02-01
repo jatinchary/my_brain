@@ -3,12 +3,13 @@ import SignIn from "./components/pages/Signin"
 import SignUp from "./components/pages/Signup"
 import MainPage from "./components/pages/MainPage"
 import ProtectedRoute from "./components/pages/ProtectedRoute"
+import LandingPage from "./components/pages/Landing"
 
 
 const App = () => {
   return (
     <Routes>
-       {/* <Route path="*" element={<SignIn/>}/> */}
+       <Route path="/" element={<LandingPage/>}/> 
       <Route path="/signin" element={<SignIn/>}/>
       <Route path="/signup" element={<SignUp/>}/>
       <Route element={<ProtectedRoute />}>

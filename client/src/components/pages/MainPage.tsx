@@ -15,11 +15,15 @@ interface Content {
   tags: string[];
 }
 
+function logout (){
+  localStorage.clear()
+}
+
 // Separate header component for better organization
 const Header = ({ onAddContent }: { onAddContent: () => void }) => (
   <div className="flex flex-col md:flex-row justify-between items-center border-b pb-4 mb-6">
     <div className="flex items-center text-xl font-semibold gap-3 mb-4 md:mb-0">
-      <span>Brainly</span>
+      <span>Brain.ly</span>
     </div>
     
     <div className="flex flex-wrap gap-4">
@@ -37,6 +41,14 @@ const Header = ({ onAddContent }: { onAddContent: () => void }) => (
       >
         <Shareicon />
         Share
+      </Button>
+      <Button
+        variant="secondary"
+        onClick={logout}
+        className="bg-customBlue-dark text-white hover:bg-customBlue-light flex items-center gap-2 px-4 py-2 rounded-lg shadow-md"
+      >
+      
+      Logout
       </Button>
     </div>
   </div>
